@@ -5,45 +5,80 @@
     <title>HondaCardGame</title>
 </head>
 <body>
-    <video autoplay muted playsinline width="100%">
-
-       <source src="HondaStart.mp4" type="video/mp4">
-            
-        Sorry, your browser doesn't support embedded videos.
-    </video>
+    <video id="myVideo" src= "HondaStart.mp4" autoplay muted playsinline width="100%"></video>
     <div class="Button">
-        <button type=“button”>私は本田のAを引く</button>
-        <button type=“button”>私は本田のBを引く</button>
+        <button id="tweet_button" type=“button” value="tweet" onclick="Lottery(this)">私は本田のAを引く</button>
+        <button id="reset_button" type=“button” value="reset" onclick="Lottery(this)">私は本田のBを引く</button>
     </div>
-<script>
-	// JavaScriptのコードがここに入ります
-</script>
 
-<style>
-    video {
-        widows: auto;
-        height: 800px;
-    }
-    button{
-        font-size: 43px;
-        height: 100px;
-        display: inline-block;
-        padding: 0.3em 1em;
-        text-decoration: none;
-        color: #67c5ff;
-        border: solid 2px #67c5ff;
-        background-color: white;
-        border-radius: 3px;
-        transition: .4s;
-    }
-    button:hover {
-         background: #67c5ff;
-        color: white;
-    }
-    .Button{
-        text-align:center;
-    }
-</style>
-
+    <style>
+        video {
+            widows: auto;
+            height: 800px;
+        }
+        button{
+            font-size: 43px;
+            height: 100px;
+            display: inline-block;
+            padding: 0.3em 1em;
+            text-decoration: none;
+            color: #67c5ff;
+            border: solid 2px #67c5ff;
+            background-color: white;
+            border-radius: 3px;
+            transition: .4s;
+        }
+        button:hover {
+             background: #67c5ff;
+            color: white;
+        }
+        .Button{
+            text-align:center;
+        }
+    </style>
 </body>
+<script>
+    var url = "https://okuzawa.github.io/HondaCardGame/";
+    var revengeText = "本田にリベンジする";
+    var tweetText = "結果をツイートする";
+    var count = 0;
+    
+    function Lottery (button) {
+        if (button.value == "reset" && count >= 1) {
+            refresh();
+        }
+        else if (button.value == "tweet" && count >= 1) {
+            Tweet();
+        }
+        else{
+            count++;
+            var reset = document.getElementById("reset_button");
+            reset.innerHTML = revengeText;
+            var twet = document.getElementById("tweet_button");
+            twet.innerHTML = tweetText;
+
+            var rand = Math.floor(Math.random() * 100) + 1;
+            Reslut(rand);
+        }
+    }
+    
+    function Reslut(params) {
+        var elem = document.getElementById("myVideo");
+        if (params == 1) {
+            elem.src = "YouWin.mp4";
+        } 
+        else {
+            elem.src = "YouLose.mp4";
+        }
+    }
+
+    function refresh() {
+	    window.location.reload();
+    }
+
+    function Tweet() {
+        window.open("http://twitter.com/intent/tweet?text=お見事！あなたの勝利！&hashtags=本田カードシュミレーター&url=" + url); //ハッシュタグにahogeタグ付くようにした。
+    }
+
+</script>
 </html>
