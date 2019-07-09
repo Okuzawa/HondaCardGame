@@ -42,7 +42,8 @@
     var revengeText = "本田にリベンジする";
     var tweetText = "結果をツイートする";
     var count = 0;
-    
+    var message = "";
+
     function Lottery (button) {
         if (button.value == "reset" && count >= 1) {
             refresh();
@@ -61,14 +62,16 @@
             Reslut(rand);
         }
     }
-    
+
     function Reslut(params) {
         var elem = document.getElementById("myVideo");
         if (params == 1) {
             elem.src = "YouWin.mp4";
-        } 
+            message = "お見事！あなたの勝利！本田圭佑は負けを認めた！！";
+        }
         else {
             elem.src = "YouLose.mp4";
+            message = "残念、本田圭佑の勝利！シュミレーターは一日に何回でも勝負を挑めるぞ！";
         }
     }
 
@@ -77,7 +80,7 @@
     }
 
     function Tweet() {
-        window.open("http://twitter.com/intent/tweet?text=お見事！あなたの勝利！&hashtags=本田とカードバトル,本田とカードバトルシュミレーター&url=" + url);
+        window.open("http://twitter.com/intent/tweet?text="+message+"&hashtags=本田とカードバトル,本田とカードバトルシュミレーター&url=" + url);
     }
 
 </script>
